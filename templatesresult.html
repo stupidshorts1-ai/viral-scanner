@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Scan Results</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main class="card">
+  <h1>Scan Results</h1>
+
+  <section>
+    <h2>AFK Players ({{ results.afk_players|length }})</h2>
+    {% if results.afk_players %}
+      <ul>
+        {% for p in results.afk_players %}
+          <li><strong>{{ p.name }}</strong> (id: {{ p.id }}) — last_active: {{ p.last_active }} — {{ p.note }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No AFK players found.</p>
+    {% endif %}
+  </section>
+
+  <section>
+    <h2>Bases with Rare Brainrots ({{ results.rare_bases|length }})</h2>
+    {% if results.rare_bases %}
+      <ul>
+        {% for b in results.rare_bases %}
+          <li>Owner: <strong>{{ b.owner }}</strong> — Base: {{ b.base_id }} — Rare: {{ b.rare_brainrots|join(", ") }} (items: {{ b.item_count }})</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No rare brainrots detected in uploaded data.</p>
+    {% endif %}
+  </section>
+
+  <a href="/" class="btn">Scan another</a>
+  <p class="small">Reminder: only upload data you own or have explicit permission to use.</p>
+</main>
+</body>
+</html>
